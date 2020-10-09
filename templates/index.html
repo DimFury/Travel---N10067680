@@ -59,7 +59,8 @@
 
                 <p class="d-none d-sm-block">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla.</p>
 
-                <a href="#" class="btn btn-primary">Join Now</a>
+                <a href="{{url_for('authentication.register')}}" class="btn btn-primary">Register</a>
+                <a href="{{url_for('authentication.login')}}" class="btn btn-primary">Login</a>
 
               </div>
 
@@ -86,6 +87,7 @@
                 Lyon’s Roman theater and the vast Palace of Versailles attest to its rich history.</p>
 
               <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+              <a href="{{url_for('destination.show', id=1)}}" class="btn btn-primary">Learn More</a>
 
             </div>
 
@@ -104,6 +106,7 @@
                 Bath’s Roman spa and centuries-old universities at Oxford and Cambridge.</p>
 
               <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+              <a href="{{url_for('destination.show', id=2)}}" class="btn btn-primary">Learn More</a>
 
             </div>
 
@@ -126,6 +129,8 @@
                 Primavera and da Vinci's The Last Supper.</p>
 
               <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            
+              <a href="{{url_for('destination.show', id=3)}}" class="btn btn-primary">Learn More</a>
 
             </div>
 
