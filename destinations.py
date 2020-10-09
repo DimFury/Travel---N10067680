@@ -1,6 +1,7 @@
-from flask import Blueprint, render_template, url_for, redirect
-from .models import Destination,Comment
-from Travel.forms import DestinationForm
+from flask import Blueprint, render_template, url_for, redirect, request
+from .models import Destination, Comment
+from Travel.forms import DestinationForm, CommentForm
+
 from datetime import datetime
 
 
@@ -12,7 +13,20 @@ bp = Blueprint('destination', __name__, url_prefix='/destinations')
 @bp.route('/<id>')
 def show(id):
     destination = get_destination()
-    return render_template('destinations/show.html', destination=destination)
+    comment_form = CommentForm()
+    return render_template('destinations/show.html', destination=destination, form=comment_form)
+
+@bp.route('/<id>/comment', methods=['GET', 'POST'])
+def comment(id):
+    comment_form = CommentForm()
+
+    if comment_form.validate_on_submit():
+      print('Comment form is valid. The Comment Was {comment_form.comment.data}')
+    else:
+      print('Comment form is invalid')
+
+    return redirect(url_for('destination.show', id=id))
+
 
 def get_destination():
   b_desc= """Brazil is considered an advanced emerging economy.
@@ -43,3 +57,4 @@ def create():
     print('form is not valid')
 
   return render_template('destinations/create.html', form=destination_form_instance) 
+

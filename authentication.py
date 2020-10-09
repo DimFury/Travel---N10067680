@@ -1,25 +1,35 @@
 from flask import Blueprint, session, redirect, url_for, render_template
-from .models import authentication_blueprint,Comment
-from Travel.forms import LoginForm
+from Travel.forms import DestinationForm, CommentForm, RegisterForm, LoginForm
 
 
 authentication_blueprint = Blueprint('authentication', __name__, url_prefix='/authentication')
 
-@authentication_blueprint.route('/login', Methods=['GET', 'POST'])
-def login():
-    login_form_instance = LoginForm()
+bp = Blueprint('authentication', __name__, url_prefix='/authentication')
 
-    if login_form_instance.validate_on_submit():
+@bp.route('/login', methods=['GET', 'POST'])
+def login():
+    login_form = LoginForm()
+
+    if login_form.validate_on_submit():
+        session['email']= login_form.user_name.data
         return redirect(url_for('authentication.login'))
     
-    return render_template('authentication/login.html', form=login_form_instance)
-
-@authentication_blueprint.route('/register', Methods=['GET', 'POST'])
-def login():
-    return ""
+    return render_template('authentication/login.html', form=login_form)
 
 
-@authentication_blueprint.route('/logout')
-def login():
+
+@bp.route('/register', methods=['GET', 'POST'])
+def register():
+    register_form = RegisterForm()
+
+    if register_form.validate_on_submit():
+        return redirect(url_for('authentication.login'))
+    
+    return render_template('authentication/register.html', form=register_form)
+
+
+
+@bp.route('/logout')
+def logout():
     session.clear()
-    return ""
+    return render_template('authentication/logout.html')
